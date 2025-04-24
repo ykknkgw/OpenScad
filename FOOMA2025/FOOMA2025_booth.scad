@@ -2,6 +2,10 @@
 Booth parts
 */
 
+use <./../Foodly/foodly.scad>
+use <./../minite/minite.scad>
+use <./../conveyer/conveyer.scad>
+
 module octapanel(width, height){
   pole_r = 20;
   poll_height= height;
@@ -24,23 +28,34 @@ module octapanel(width, height){
 
 color("silver")translate([20,20,0])  cylinder(r=20, h=2680);
 //奥のパネル
-for(x=[0:990:5900]){
+for(x=[0:990:990*5]){
   translate([x,0,0]) octapanel(990, 2680);
 }
 //中のパネル
-for(x=[0:990:5900]){
+for(x=[0:990:990*5]){
   translate([x,1980,0]) octapanel(990, 2680);
 }
 //右のパネル
-for(y=[0:990:4950]){
+for(y=[0:990:990*4]){
   translate([20,y,0]) rotate([0,0,90])octapanel(990, 2680);
 }
 //左のパネル
-for(y=[0:990:4950]){
+for(y=[0:990:990*4]){
   translate([5940,y,0]) rotate([0,0,90])octapanel(990, 2680);
 }
 
 //Foodly 手前のパネル
-for(x=[3950:990:5900]){
+for(x=[0:990:990*1]){
   translate([x,4950,0]) octapanel(990, 900);
 }
+//Foodly左のパネル
+for(y=[0:700:700*2]){
+  translate([990*2,1980+870+y,0]) rotate([0,0,90])octapanel(700, 900);
+}
+
+
+translate([990*1, 990*4, 0]) rotate([0,0,90])foodly();
+translate([990*5-500, 990*4, 0]) rotate([0,0,90])minite();
+
+translate([990*5-100-500,990*3, 0])conveyer(550, 1000, 900);
+translate([990*5+400,990*3, 0])color("silver")cube([600, 500, 900]);
